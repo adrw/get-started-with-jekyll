@@ -46,11 +46,28 @@ Git
 
 Getting Started
 ---
-1. Prepare your computer by installing Git, Docker, Atom.
-  - On a Mac, the following bootstrap script will do just this
-  - `$ curl bootstrap | bash -s `
-1. Find a Jekyll theme that you'd like to use and download a .zip file of the theme code to your computer.
-1. Sign up for a GitHub account.
-1. Create a new repository (repo) named `{your github username}.github.io`.
-  - It will take you to a page with instructions for adding files to your repo from your Terminal.
-  - Use these instructions to upload the code from the Jekyll theme you found.
+1. **Prepare your computer by installing Git, Docker, Atom**
+    - On a Mac, the following bootstrap script will do just this. Copy this into your Terminal:
+    - `$ cd ${HOME}/; curl -sO https://raw.githubusercontent.com/andrewparadi/.files/master/bootstrap.sh; chmod +x ${HOME}/bootstrap.sh; ${HOME}/bootstrap.sh -d ${HOME}/.ap-files -p mac_jekyll; rm ${HOME}/bootstrap.sh; rm -rf ${HOME}/.ap-files/ `
+    - It will download the requirements and run setup configuration using my [`.files` provisioning script](https://github.com/andrewparadi/.files)
+1. **Find a Jekyll theme that you'd like to use and download a .zip file of the theme code to your computer**
+1. **Sign up for a GitHub account**
+1. **Create a new repository (repo) on GitHub named `{your github username}.github.io`**
+    - It will take you to a page with instructions for adding files to your repo from your Terminal.
+    - Consider keeping your code in a `src` directory, ie. `~/src/github.com/{your github username}.github.io` where `~` is your home folder on your computer
+      - Create a new folder with this code snippet in Terminal: `$ mkdir -p ~/src/github.com/{your github username}.github.io`
+    - Use these instructions to upload the code from the Jekyll theme you found.
+1. **Install build tools for Jekyll**
+    - Why?
+      - Using Docker allows you to develop for Jekyll in a containerized testing environment that requires less software installed to your computer.
+      - Also! If you decide you don't want to do Jekyll development anymore, it's really easy to revert your computer to how it started.
+    - Navigate with `cd` to your repo on your computer.
+    - Run the following script which will download (or update) a `Makefile` and `docker-compose.yml` file
+    - `$ curl -sO https://raw.githubusercontent.com/andrewparadi/get-started-with-jekyll/master/bootstrap.sh | bash -s `
+1. **You can now start your local Jekyll server with `make` in Terminal**
+    - Docker will now download the jekyll image and build your site.
+    - Your website will now be accessible at [http://0.0.0.0:4000/](http://0.0.0.0:4000/)
+1. **Have fun! Any edits you make to your code in Atom (or another editor) will build live and show up when you refresh [http://0.0.0.0:4000/](http://0.0.0.0:4000/)**
+    - Any errors will show up in the Terminal. You may need to restart the server using `ctrl-c`, also known as `C-c`, and then running `make` again.
+1. **When you're ready to push your local changes live, use the `git add, commit, push` workflow as outlined above.**
+1. **Fin.**
