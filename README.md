@@ -32,7 +32,9 @@ Getting Started
 ===
 1. **Prepare your computer by installing Git, Docker, Atom**
     - On a Mac, the following bootstrap script will do just this. Copy this into your Terminal:
-    - `$ cd ${HOME}/; curl -sO https://raw.githubusercontent.com/andrewparadi/.files/master/bootstrap.sh; chmod +x ${HOME}/bootstrap.sh; ${HOME}/bootstrap.sh -d ${HOME}/.ap-files -p mac_jekyll; rm ${HOME}/bootstrap.sh; rm -rf ${HOME}/.ap-files/ `
+      ```
+      $ cd ${HOME}/; curl -sO https://raw.githubusercontent.com/andrewparadi/.files/master/bootstrap.sh; chmod +x ${HOME}/bootstrap.sh; ${HOME}/bootstrap.sh -d ${HOME}/.ap-files -p mac_jekyll; rm ${HOME}/bootstrap.sh; rm -rf ${HOME}/.ap-files/
+      ```
     - It will download the requirements and run setup configuration using my [`.files` provisioning script](https://github.com/andrewparadi/.files)
 1. **Find a Jekyll theme**
     - Search for a theme you'd like to use
@@ -43,7 +45,9 @@ Getting Started
     - It will take you to a page with instructions for adding files to your repo from your Terminal.
     - Consider keeping your code in a `src` directory, ie. `~/src/github.com/{your github username}.github.io` where `~` is your home folder on your computer
       - Create a new folder with this code snippet in Terminal:
-      - `$ mkdir -p ~/src/github.com/{your github username}.github.io`
+        ```
+        $ mkdir -p ~/src/github.com/{your github username}.github.io
+        ```
     - Use these instructions to upload the code from the Jekyll theme you found.
 1. **Install build tools for Jekyll**
     - Why?
@@ -51,7 +55,9 @@ Getting Started
       - Also! If you decide you don't want to do Jekyll development anymore, it's really easy to revert your computer to how it started.
     - Navigate with `cd` to your repo on your computer.
     - Run the following script which will download (or update) a `Makefile` and `docker-compose.yml` file
-    - `$ curl -sO https://raw.githubusercontent.com/andrewparadi/get-started-with-jekyll/master/bootstrap.sh | bash -s `
+      ```
+      $ curl -sO https://raw.githubusercontent.com/andrewparadi/get-started-with-jekyll/master/bootstrap.sh | bash -s
+      ```
 1. **Start your local Jekyll server**
     - Start your local Jekyll server by typing `make` into Terminal while navigated to your repo directory.
     - Docker will now download the jekyll image and build your site.
