@@ -1,26 +1,22 @@
 Why Get-Started-with-Jekyll?
 ===
-1. GitHub pages will host your Jekyll website for free with super-fast servers and CDNs (servers around the world).
+1. GitHub Pages will host your Jekyll website for free with super-fast servers and CDNs (servers around the world).
 2. Jekyll is a simple yet powerful framework that helps structure a basic HTML site for easy use as a Blog, Portfolio, or any website.
-3. Jekyll on GitHub pages is **faster** than Wordpress, **cheaper** than Squarespace, and is more **professional** than Wix.
-4. Learn the basics below to [buy a domain](https://affiliate.namecheap.com/?affId=118144), setup your GitHub pages repo, and start building your Jekyll blog.
+3. Jekyll on GitHub Pages is **faster** than Wordpress, **cheaper** than Squarespace, and is more **professional** than Wix.
+4. Learn the basics below to [buy a domain](https://affiliate.namecheap.com/?affId=118144), setup your GitHub Pages repo, and start building your Jekyll blog.
 
 Guide
 ---
 - [Getting Started](#getting-started)
-  1. Prepare
-  1. Find Jekyll Theme
-  1. Sign up for GitHub account
-  1. Create repo
-  1. Install Jekyll build tools
-  1. Start Jekyll local server
-  1. Build locally
-  1. Push it live
 - [Unix Terminal Basics](#unix-terminal)
   - [Terminal Commands](#unix-terminal-commands)
 - [Git](#git)
   - [Details](#git-details)
   - [Terminal Commands](#git-commands)
+- [Docker](#docker)
+  - [Jekyll on Docker](#why-jekyll-on-docker)
+  - [Docker Commands](#docker-commands)
+- [Jekyll Build Server](#jekyll-build-server)
 - [Resources](#resources)
   - [GitHub Pages](https://pages.github.com/)
   - [Jekyll docs](https://jekyllrb.com/docs/home/)
@@ -33,7 +29,7 @@ Getting Started
 1. **Prepare your computer by installing Git, Docker, Atom**
     - On a Mac, the following bootstrap script will do just this. Copy this into your Terminal:
       ```
-      $ cd ${HOME}/; curl -sO https://raw.githubusercontent.com/andrewparadi/.files/master/bootstrap.sh; chmod +x ${HOME}/bootstrap.sh; ${HOME}/bootstrap.sh -d ${HOME}/.ap-files -p mac_jekyll; rm ${HOME}/bootstrap.sh; rm -rf ${HOME}/.ap-files/
+      $ cd ${HOME}/; curl -sO https://raw.githubusercontent.com/andrewparadi/.files/master/bootstrap.sh; chmod +x ${HOME}/bootstrap.sh; ${HOME}/bootstrap.sh -d ${HOME}/.ap-files -p mac_jekyll; rm ${HOME}/bootstrap.sh; rm -rf ${HOME}/.ap-files/; cd -
       ```
     - It will download the requirements and run setup configuration using my [`.files` provisioning script](https://github.com/andrewparadi/.files)
 1. **Find a Jekyll theme**
@@ -49,26 +45,23 @@ Getting Started
         $ mkdir -p ~/src/github.com/{your github username}.github.io
         ```
     - Use these instructions to upload the code from the Jekyll theme you found.
-1. **Install build tools for Jekyll**
-    - Why?
-      - Docker is like a virtual machine, it lets you run your Jekyll server locally in a contained sandbox so it won't mess up any existing software or folders on your computer.
-      - Also! If you decide you don't want to do Jekyll development anymore, it's really easy to revert your computer to how it started.
+1. **Install Docker build tools for Jekyll**
+    - Why? [Read more about Jekyll on Docker below.](#docker)
     - Navigate with `cd` to your repo on your computer.
     - Run the following script which will download (or update) a `Makefile` and `docker-compose.yml` file
       ```
-      $ curl -sO https://raw.githubusercontent.com/andrewparadi/get-started-with-jekyll/master/bootstrap.sh | bash -s
+      $ curl -sO https://raw.githubusercontent.com/andrewparadi/get-started-with-jekyll/master/bootstrap.sh; chmod +x bootstrap.sh; ./bootstrap.sh; rm ./bootstrap.sh
       ```
 1. **Start your local Jekyll server**
-    - Start your local Jekyll server by typing `make` into Terminal while navigated to your repo directory.
-    - Docker will now download the jekyll image and build your site.
+    - Start your local Jekyll server by typing `make` into Terminal when in your repo directory.
+    - Docker will download the Jekyll image and build your site.
     - Your website will now be accessible only to your computer at [http://0.0.0.0:4000/](http://0.0.0.0:4000/).
-1. **You're ready to build locally!**
-    - Any edits you make to your code in Atom (or another editor) will build live and show up when you refresh [http://0.0.0.0:4000/](http://0.0.0.0:4000/).
-    - Since this is a local build server, you don't need to worry about anyone else seeing the changes. It will only go public when you `git commit` and `push` it to GitHub pages.
-    - Also! Any errors while you're writing code will show up in the Terminal. Most errors will tell you what line of which file has an issue so you can go back and fix it.
-    - If the server dies or stops building your site, you may need to restart the server. Do this by typing using `ctrl-c` (on other documentation online, this may be written as `C-c` but it's still the same `crtl-c` keys pressed). Once the server has shut down, restart it by typing `make` again.
+1. **You're ready to write code locally!**
+    - Check out the [Jekyll docs](https://jekyllrb.com/docs/home/) and [Liquid Language docs](https://shopify.github.io/liquid/) to understand how Jekyll is organized and start coding your blog.
+    - To learn more about the Jekyll build server that is running your website at [http://0.0.0.0:4000/](http://0.0.0.0:4000/), scroll down to [that section](#jekyll-build-server).
 1. **Push it live 😎**
-    - When you're ready to push your local changes live to GitHub pages, use the `git add, commit, push` workflow as outlined [below](#git).
+    - When you're ready to push your local changes live to GitHub Pages, use the `git add, commit, push` workflow as outlined [below](#git).
+    - You can also use `make save` instead, [read more here](#docker-commands).
     - Your site will now be available at `www.{github username}.github.io/` or your custom domain if you've set that up.
 1. **Fin.**
 
@@ -76,7 +69,7 @@ Unix Terminal
 ===
 - **History Lesson** Before macOS, Windows, and *Graphical User Interfaces (GUI)*, all computer interaction was done through a *Command Line Interface (CLI)*. Using short text commands instead of a clicking around with a mouse, most of the same interactions could be completed.
 - **Example** To see your files in a GUI you would open `Finder` on macOS, see a listing of your files, and then double click to enter subfolders. In a CLI, you would use the command `ls` to see the files in the initial folder, and `cd` to enter into different subfolders.
-- **Why learn all this?** To setup a website on GitHub pages, you'll need to use some basic commands in Terminal to navigate to your project folder, start the Docker development environment, and commit your changes with `git` to push the website live.
+- **Why learn all this?** To setup a website on GitHub Pages, you'll need to use some basic commands in Terminal to navigate to your project folder, start the Docker development environment, and commit your changes with `git` to push the website live.
 
 Unix Terminal Commands
 ---
@@ -104,7 +97,7 @@ Git Details
 ---
 - Git is a source control system. It keeps track of changes in code and provides a structured history of all changes over time. Git is remarkably powerful and complex providing countless commands and ways to do things to allow many people to work on the same project.
 - Each point in history is a `commit`. A `commit` allows you to break up the progress of your code into chunks of progress, like each time a new feature or post is finished.
-- **Warning ** Don't use commits like a save button! Your history will end up very long and not useful to see the progress of the project. Below, you'll see how to build Jekyll locally and then you only need to commit once you've finished the post (instead of saving each time to test in your browser).
+- **Warning** Don't use commits like a save button! Your history will end up very long and not useful to see the progress of the project. Below, you'll see how to build Jekyll locally and then you only need to commit once you've finished the post (instead of saving each time to test in your browser).
 - Commits also don't need to include every changed file. For example, if you're in the middle of working on `PageA.html` but there's other work that is done unrelated to `PageA.html`, then you can make a commit of that work without waiting for `PageA.html` to be done.
 
 Git Commands
@@ -117,9 +110,46 @@ Git Commands
 - `git commit -m "{message}"` packages all the currently staged files into a commit with the specified message. The message is required and should describe the current state of the code.
   - Useful message: `Spaghetti and meatsauce post` or `[CLOSES #42] Footer button animations` to close GitHub issue feature request
   - Not useful message: `Changed spaghetti.html, main.css, footer.html, interaction.js, main.js, button.js, head.html`. This doesn't tell anyone reading your commit history what actually was done, what feature or post was finished.
-- `git push` updates the server with all local commits. In our case the server is GitHub pages, and any pushed commits immediately go live on your website.
+- `git push` updates the server with all local commits. In our case the server is GitHub Pages, and any pushed commits immediately go live on your website.
 - `git pull` updates your local code with any changes from the server.
   - **Warning** You'll want to always `pull` before you `push` if working with other people or on multiple computers so you don't overwrite changes on the server that aren't on your local computer yet.
+
+Docker
+===
+- Docker is a popular container framework. But what does that mean?
+  > "Using containers, everything required to make a piece of software run is packaged into isolated containers. Unlike VMs, containers do not bundle a full operating system - only libraries and settings required to make the software work are needed. This makes for efficient, lightweight, self-contained systems and guarantees that software will always run the same, regardless of where it’s deployed." [- Docker](https://www.docker.com/what-docker) (Jun 29, 2017)
+- By not including the host operating system (OS) in their virtual machine (VM) like containers, Docker makes it more efficient to run many containers on your computer at the same time since each container won't have repeated overhead by a having a host OS.
+- For a simple project like a blog, we will only need our single Jekyll container.
+- For larger projects that may have a front end, backend api, and database for example, multiple Docker containers can be linked together for each of the functions (frontend, backend, database) and started, stopped, and updated independently.
+
+Why Jekyll on Docker?
+---
+- Jekyll requires a set of software to build locally which includes [Ruby](https://www.ruby-lang.org/en/downloads/), [RubyGems](https://rubygems.org/pages/download), [GCC](https://gcc.gnu.org/install/), and [Make](https://www.gnu.org/software/make/).
+- It can be a hassle to set the specific version requirements for each of these required packages (especially if you have different requirements for other projects you're working on). This is where Docker comes in!
+- With Docker, we can hold all of our Jekyll software requirements in a self-contained environment. This guide uses the official [Jekyll Docker image](https://hub.docker.com/r/jekyll/jekyll/) that has all of the required software included, so you don't need to set up anything!
+- If you decide you don't want to do Jekyll development anymore, Docker makes it easy to remove all of the required build software, since it's entirely self-contained to the specific Docker container.
+
+Docker Commands
+---
+- This guide includes a [Makefile](./Makefile) to abstract long Docker run commands to simply the following. If you want to see the full Docker commands, just open up [Makefile](./Makefile) in your text editor and you can learn more.
+  - `make | make run`: Builds and runs Jekyll server making your website available at [http://0.0.0.0:4000/](http://0.0.0.0:4000/).
+  - `make compile`: Builds Jekyll to build folder but doesn't serve it
+  - `make rebuild`: Builds Jekyll without caching (takes a bit longer)
+  - `make save`: Runs `git add, commit, push` flow to deploy all local changes to GitHub Pages.
+- If you want to **free up disk space** that Docker doesn't need anymore (or you're getting rid of Docker), run these commands.
+  - `docker kill $(docker ps -q)` - kill all running Docker containers
+  - `docker rm $(docker ps -a -q)` - delete all Docker containers
+  - `docker rmi -f $(docker images -q)` - delete all Docker images (the recipe to build a container)
+  - `docker volume prune` - free other related Docker disk space
+
+Jekyll Build Server
+===
+- Jekyll build server lets you test your website locally before pushing it live to GitHub pages.
+- It continuously builds your website and makes it available locally to [http://0.0.0.0:4000/](http://0.0.0.0:4000/).
+  - **Continuous build** means that everytime to save a chance in your text editor, the server will rebuild Jekyll and in ~15 seconds or less, you'll see your changes reflected when you refresh [http://0.0.0.0:4000/](http://0.0.0.0:4000/).
+- Since this is a local build server, you don't need to worry about anyone else seeing the changes. It will only go public when you `make save` or `git add`, `commit` and `push` it to GitHub Pages.
+- **Warning!** Any errors while you're writing code will show up in the Terminal. Most errors will tell you what line of which file has an issue so you can go back and fix it.
+- If the server dies or stops building your site, you may need to restart the server. Do this by typing using `ctrl-c` (on other documentation online, this may be written as `C-c` but it's still the same `crtl-c` keys pressed). Once the server has shut down, restart it by typing `make` again.
 
 Resources
 ===
